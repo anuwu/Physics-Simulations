@@ -1,12 +1,25 @@
-it=1 ; 
-r = 5 ; 
-for theta= 0 : (2*pi)/10000 : 2*pi 
-rad = r*(1 - theta*(theta-2*pi)/(pi*pi)) ;
-x(it) = rad * + cos(theta) ;
-y(it) = rad * sin(theta);
-it = it+1;
-end
-x(it) = x(1) ;
-y(it) = y(1) ;
+function [x,y] = blobGen (mu, sigma, points)
+    theta = linspace (0, 2*pi,points);
+    pd = makedist('Lognormal','mu',mu,'sigma',sigma); 
+    r = random(pd,points,1) ;
+    r = [r(end-8:end);r;r(1:10)].' ;
 
-plot(x,y) ;
+    r = smoothListGaussian (r, 10) ;
+    x = cos(theta) .* r ;
+    y = sin(theta) .* r ;
+
+    x(end+1) = x(1) ;
+    y(end+1) = y(1) ;
+    if (min(x) < 0)
+        x = x - 2*min(x) ;
+    end
+    if (min(y) < 0)
+        y = y - 2*min(y) ;
+    end
+
+    %{
+    plot (x, y) ;
+    xlim([-5,5]) ;
+    ylim([-5,5]) ;
+    %}
+end
