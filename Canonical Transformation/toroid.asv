@@ -36,7 +36,7 @@ if (length(xline) >= 2)
     if (mod(it,100) == 0)
         cit = mod(cit + 1, 9) + 1 ;
     end
-    plot3(xline(end-1:end), yline(end-1:end), zline(end-1:end) , 'Color' , c(cit)) ;
+    plot3(xline(end-1:end), yline(end-1:end), zline(end-1:end) , 'Color' , [rand,rand,rand]) ;
 end
     
 view([-52,64])
