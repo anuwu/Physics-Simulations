@@ -17,42 +17,60 @@ x=(R+r*cos(v)).*cos(u);
 y=(R+r*cos(v)).*sin(u);
 z=r*sin(v);
 
-figure(1)
+gcf = figure(1) ;
+set(gcf,'position',[400,0,700,700]) ;
+set (gcf, 'KeyPressFcn', @myKeyPressFcn) ;
+global KEY_IS_PRESSED ;
+KEY_IS_PRESSED = 0 ;
+
 mesh(x,y,z);
 hold on ;
-
 wR = 1 ;
 wr = pi ;
 
-c = ['b', 'r', 'k', 'r', 'g', 'y', 'c', 'm', 'w'] ;
+c = ['b', 'k', 'r', 'g', 'c', 'm'] ;
 cit = 1 ;
 %c = [0,0,0];
 it = 1 ;
-for t = 0 : 2*pi/100 : 2*pi*10
-xline(it) = (R+r*cos(wr*t))*cos(wR*t) ;
-yline(it) = (R+r*cos(wr*t))*sin(wR*t) ;
-zline(it) = r*sin(wr*t) ;
-if (length(xline) >= 2)
-    if (mod(it,100) == 0)
-        cit = mod(cit + 1, 9) + 1 ;
-    end
-    plot3(xline(end-1:end), yline(end-1:end), zline(end-1:end) , 'Color' , c(cit)) ;
-end
-    
-view([-52,64])
-axis([-7 7 -7 7 -2 2])
-h=gca; 
-get(h,'FontSize') ;
-set(h,'FontSize',14)
-xlabel('X','fontSize',14);
-ylabel('Y','fontSize',14);
-zlabel('Z','fontsize',14);
-title('Torus','fontsize',14)
-fh = figure(1);
-set(fh, 'color', 'white'); 
-drawnow ;
+dt = (2*pi)/100 ;
+t = 0 ;
 
-it = it + 1 ;
+display (c(it)) ;
+while ~KEY_IS_PRESSED 
+    xline(it) = (R+r*cos(wr*t))*cos(wR*t-pi) ;
+    yline(it) = (R+r*cos(wr*t))*sin(wR*t-pi) ;
+    zline(it) = r*sin(wr*t) ;
+    if (length(xline) >= 2)
+        if (mod(it,100) == 0)
+            cit = mod(cit + 1, 6) + 1 ;
+            %display(c(cit));
+        end
+        plot3(xline(end-1:end), yline(end-1:end), zline(end-1:end) , 'Color' , c(cit)) ;
+    end
+
+    view([-52,64]) ;
+    axis([-7 7 -7 7 -2 2]) ;
+    h=gca; 
+    get(h,'FontSize') ;
+    set(h,'FontSize',14) ;
+    xlabel('X','fontSize',14);
+    ylabel('Y','fontSize',14);
+    zlabel('Z','fontsize',14);
+    title('Press any key to exit','fontsize',14)
+    fh = figure(1);
+    set(fh, 'color', 'white'); 
+    drawnow ;
+
+    t = t + dt ;
+    it = it + 1 ;
 end
+
+function myKeyPressFcn(hObject, event)
+    global KEY_IS_PRESSED ;
+    KEY_IS_PRESSED  = 1 ;
+    display('Done with torus. Thank you') ;
+end
+
+
 
 %-------------------------------------------------------------------------
