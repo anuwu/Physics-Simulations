@@ -7,7 +7,9 @@ This repository contains simulations of 3 systems in physics -
 
 ### 1. Plank on a Hemisphere
 
-My interest into this system arose after an elusive problem in the final exam of the Classical Mechanics course at BITS. Derivation of the equations of motion can be found in [this](Plank-on-Hemisphere/Plank-on-Hemisphere.png) file.
+My interest into this system arose after an elusive problem in the final exam of the Classical Mechanics course at BITS. Derivation of the equations of motion can be found in [this](Plank-on-Hemisphere/Plank-on-Hemisphere.pdf) file.
+
+![alt text](Plank-on-Hemisphere/plank-on-hemisphere.gif)
 
 ### 2. Ising Spin
 
